@@ -1,0 +1,37 @@
+/*payment*/
+
+body {
+    background-color: #FEF9E1;
+    color: #6D2323;
+}
+.sidebar {
+    background-color: #A31D1D;
+    color: #FEF9E1;
+    padding: 20px;
+    text-align: center;
+}
+.card {
+    background-color: #E5D0AC;
+    color: #6D2323;
+    padding: 20px;
+    border-radius: 10px;
+}
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    background-color: #6D2323;
+    color: #E5D0AC;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.3s;
+    margin-bottom: 10px;
+}
+.payment-option:hover {
+    background-color: #f0f0f0;
+}
+.payment-option img {
+    width: 50px;
+    height: 50px;
+}

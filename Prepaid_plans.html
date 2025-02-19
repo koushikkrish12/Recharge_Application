@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prepaid Plans</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/CSS/style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Enjoy Your Prepaid Network</h2>
+        <img src="assets/image/photo-1585692614093-62dab82e9d08.jpg" alt="Prepaid Network" class="img-fluid rounded">
+    </div>
+
+    <div class="content">
+        <h2 class="text-center mb-4">Prepaid Recharge Plans</h2>
+        <h3>Popular Plans</h3>
+<div class="card" id="plan-199">
+    <h5>₹199 Plan</h5>
+    <p>1.5GB Data/day, 28 days Validity, Unlimited Calls</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(199, '1.5GB Data/day', '28 days Validity')">Get Plan</a>
+    </div>
+</div>
+<div class="card" id="plan-299">
+    <h5>₹299 Plan</h5>
+    <p>2GB Data/day, 56 days Validity, Unlimited Calls</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(299, '2GB Data/day', '56 days Validity')">Get Plan</a>
+    </div>
+</div>
+<div class="card" id="plan-499">
+    <h5>₹499 Plan</h5>
+    <p>3GB Data/day, 84 days Validity, Unlimited Calls</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(499, '3GB Data/day', '84 days Validity')">Get Plan</a>
+    </div>
+</div>
+
+<h3>Validity Plans</h3>
+<div class="card">
+    <h5>₹99 Plan</h5>
+    <p>Talktime ₹99, 28 days Validity</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(99, 'Talktime ₹99', '28 days Validity')">Get Plan</a>
+    </div>
+</div>
+<div class="card">
+    <h5>₹179 Plan</h5>
+    <p>Unlimited Calls, 2GB Total Data, 28 days Validity</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(179, '2GB Total Data', '28 days Validity')">Get Plan</a>
+    </div>
+</div>
+<div class="card">
+    <h5>₹455 Plan</h5>
+    <p>6GB Total Data, 84 days Validity</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(455, '6GB Total Data', '84 days Validity')">Get Plan</a>
+    </div>
+</div>
+
+<h3>Data Plans</h3>
+<div class="card">
+    <h5>₹181 Plan</h5>
+    <p>1GB Data/day, 30 days Validity</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(181, '1GB Data/day', '30 days Validity')">Get Plan</a>
+    </div>
+</div>
+<div class="card">
+    <h5>₹241 Plan</h5>
+    <p>1.5GB Data/day, 30 days Validity</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(241, '1.5GB Data/day', '30 days Validity')">Get Plan</a>
+    </div>
+</div>
+<div class="card">
+    <h5>₹301 Plan</h5>
+    <p>2GB Data/day, 30 days Validity</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(301, '2GB Data/day', '30 days Validity')">Get Plan</a>
+    </div>
+</div>
+
+<h3>Unlimited Data Plans</h3>
+<div class="card"  id="plan-499">
+    <h5>₹599 Plan</h5>
+    <p>Truly Unlimited Data, 28 days Validity</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(599, 'Unlimited Data', '28 days Validity')">Get Plan</a>
+    </div>
+</div>
+<div class="card">
+    <h5>₹699 Plan</h5>
+    <p>Truly Unlimited Data, 56 days Validity</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(699, 'Unlimited Data', '56 days Validity')">Get Plan</a>
+    </div>
+</div>
+<div class="card" id="plan-799">
+    <h5>₹799 Plan</h5>
+    <p>Truly Unlimited Data, 84 days Validity</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(799, 'Unlimited Data', '84 days Validity')">Get Plan</a>
+    </div>
+</div>
+<div class="card"  id="plan-499">
+    <h5>₹999 Plan</h5>
+    <p>Truly Unlimited Data, 90 days Validity</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(999, 'Unlimited Data', '90 days Validity')">Get Plan</a>
+    </div>
+</div>
+<div class="card">
+    <h5>₹1499 Plan</h5>
+    <p>Truly Unlimited Data, 180 days Validity</p>
+    <div class="card-footer">
+        <a class="btn btn-primary" onclick="showMobileNumberModal(1499, 'Unlimited Data', '180 days Validity')">Get Plan</a>
+    </div>
+</div>
+
+
+    <!-- Mobile Number Modal -->
+<div class="modal fade" id="mobileNumberModal" tabindex="-1" aria-labelledby="mobileNumberModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mobileNumberModalLabel">Enter Your Mobile Number</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="mobileNumber" class="form-label">Mobile Number</label>
+                    <input type="text" id="mobileNumber" class="form-control" placeholder="Enter 10-digit mobile number">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="proceedToPayment">Proceed to Payment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
