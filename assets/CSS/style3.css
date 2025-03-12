@@ -1,0 +1,33 @@
+
+/*payment submission*/
+
+body {
+    background-color: #FEF9E1;
+    color: #6D2323;
+    text-align: center;
+}
+.navbar {
+    background-color: #A31D1D;
+}
+.navbar-brand {
+    color: #FEF9E1 !important;
+    font-size: 24px;
+    font-weight: bold;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+.card {
+    background-color: #E5D0AC;
+    color: #6D2323;
+    padding: 20px;
+    border-radius: 10px;
+}
+.success-img {
+    width: 120px;
+    margin-bottom: 15px;
+}

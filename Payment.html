@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/CSS/style2.css">
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-3 sidebar">
+                <h2>Payment</h2>
+            </div>
+            <div class="col-12 col-md-9 p-3">
+                <div class="card mb-3">
+                    <h3>Selected Plan</h3>
+                    <p><strong>Mobile Number:</strong> <span id="mobileNumber"></span></p>
+
+
+                    <p><strong>Recharge Amount:</strong> <span id="planAmount"></span></p>
+                    <p><strong>Plan Details:</strong> <span id="planDetails"></span></p>
+
+                </div>
+                <div class="card">
+                    <h3>Choose Payment Method</h3>
+                    <div class="payment-option" data-bs-toggle="modal" data-bs-target="#cardPaymentModal">
+                        <img src="https://cdn-icons-png.flaticon.com/512/60/60378.png" alt="Debit Card">
+                        <span>Debit Card</span>
+                    </div>
+                    <div class="payment-option" data-bs-toggle="modal" data-bs-target="#upiPaymentModal">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL3YqwcT8bQJKcswzy91M6e95EvOwKvDE_Og&s" alt="Google Pay">
+                        <span>Google Pay</span>
+                    </div>
+                    <div class="payment-option" data-bs-toggle="modal" data-bs-target="#upiPaymentModal">
+                        <img src="https://cdn.pixabay.com/photo/2021/04/03/03/20/paytm-6146408_1280.png" alt="Paytm">
+                        <span>Paytm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Card -->
+    <div class="modal fade" id="cardPaymentModal" tabindex="-1" aria-labelledby="cardPaymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cardPaymentModalLabel">Enter Card Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Card Number</label>
+                            <input type="text" class="form-control" placeholder="16-digit card number">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Expiry Date</label>
+                            <input type="text" class="form-control" placeholder="MM/YY">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">CVV</label>
+                            <input type="password" class="form-control" placeholder="3-digit CVV">
+                        </div>
+                        <a type="button" class="btn btn-danger w-100" href="Payment_Success.html">Confirm Payment</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPI -->
+    <div class="modal fade" id="upiPaymentModal" tabindex="-1" aria-labelledby="upiPaymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="upiPaymentModalLabel">Enter UPI ID</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">UPI ID</label>
+                            <input type="text" class="form-control" placeholder="example@upi">
+                        </div>
+                        <a type="button" class="btn btn-danger w-100" href="Payment_Success.html">Confirm Payment</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/js/script.js">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

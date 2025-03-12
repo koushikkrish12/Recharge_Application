@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prepaid Plans</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/CSS/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .card {
+            margin: 10px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 100%; /* Ensure all cards have the same height */
+        }
+        .card-footer {
+            background: none;
+            border-top: none;
+            text-align: center; /* Center the button */
+        }
+        
+        .content {
+            width: 75%;
+            float: left;
+            padding: 20px;
+        }
+
+        .plan-categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .plan-categories button {
+            background-color: #A31D1D;
+            color: #FEF9E1;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .plan-categories button:hover {
+            background-color: #6D2323;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Enjoy Your Prepaid Network</h2>
+        <img src="assets/image/photo-1585692614093-62dab82e9d08.jpg" alt="Prepaid Network" class="img-fluid rounded">
+    </div>
+
+    <div class="content" id="plans-container">
+        <button class="back-button" onclick="window.history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h2 class="text-center mb-4">Prepaid Recharge Plans</h2>
+        
+        <!-- Plan Categories -->
+        <div class="plan-categories">
+            <button onclick="filterPlans('all')">All</button>
+            <button onclick="filterPlans('popular')">Popular</button>
+            <button onclick="filterPlans('unlimited')">Unlimited</button>
+            <button onclick="filterPlans('data')">Data</button>
+            <button onclick="filterPlans('calls')">Calls</button>
+        </div>
+
+        <div class="row" id="plans-row">
+            <!-- Plans will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- Mobile Number Modal -->
+    <div class="modal fade" id="mobileNumberModal" tabindex="-1" aria-labelledby="mobileNumberModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mobileNumberModalLabel">Enter Your Mobile Number</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="mobileNumber" class="form-label">Mobile Number</label>
+                        <input type="text" id="mobileNumber" class="form-control" placeholder="Enter 10-digit mobile number">
+                    </div>
+                    <div class="mb-3">
+                        <p>Price: <span id="modal-plan-price"></span></p>
+                        <p>Details: <span id="modal-plan-details"></span></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="proceedToPayment">Proceed to Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            let mobileNumber = urlParams.get("mobile");
+
+            // If mobile number is not in URL, try getting it from localStorage
+            if (!mobileNumber) {
+                mobileNumber = localStorage.getItem("rechargeNumber");
+            }
+
+            // Store the mobile number for later use
+            if (mobileNumber) {
+                localStorage.setItem("rechargeNumber", mobileNumber);
+            }
+
+            // Fetch and display plans
+            fetch('http://localhost:3000/plans')
+                .then((response) => response.json())
+                .then((data) => {
+                    const plansRow = document.getElementById('plans-row');
+                    plansRow.innerHTML = '';
+
+                    data.forEach(plan => {
+                        const planCard = `
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <h5>₹${plan.price}</h5>
+                                    <p>${plan.details}</p>
+                                    <div class="card-footer">
+                                        <a class="btn btn-primary" onclick="handleGetPlan('${plan.price}', '${plan.details}')">Get Plan</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        plansRow.innerHTML += planCard;
+                    });
+                })
+                .catch(error => console.error("Error fetching plans:", error));
+        });
+
+        function handleGetPlan(price, details) {
+            const mobileNumber = localStorage.getItem("rechargeNumber");
+
+            if (mobileNumber) {
+                window.location.href = `Payment.html?amount=${price}&data=${details}&mobile=${mobileNumber}`;
+            } else {
+                alert("Mobile number not found. Please try again.");
+            }
+        }
+
+        function filterPlans(category) {
+            // Implement filtering logic based on the category
+            console.log(`Filtering by ${category}`);
+            // You can fetch plans again and filter them based on the category
+        }
+    </script>
+</body>
+</html>

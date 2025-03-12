@@ -1,0 +1,67 @@
+/* Payment Page Styles */
+body {
+    background-color: #FEF9E1;
+    color: #6D2323;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background-color: #A31D1D;
+    color: #FEF9E1;
+    padding: 20px;
+    text-align: center;
+    height: 110vh; /* Full height */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.sidebar h2 {
+    font-size: 2rem; /* Increase font size */
+    margin: 0; /* Remove default margin */
+}
+
+.card {
+    background-color: #E5D0AC;
+    color: #6D2323;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0; /* Add margin for spacing */
+}
+
+.payment-options-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    height: 100%; /* Full height */
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    background-color: #6D2323;
+    color: #E5D0AC;
+    padding: 20px; /* Increased padding */
+    border-radius: 8px;
+    transition: 0.3s;
+    margin-bottom: 15px; /* Increased margin */
+    width: 80%; /* Wider payment options */
+    font-size: 18px; /* Bigger font size */
+}
+
+.payment-option:hover {
+    background-color: #f0f0f0;
+    color: #6D2323; /* Change text color on hover */
+}
+
+.payment-option img {
+    width: 50px;
+    height: 50px;
+}

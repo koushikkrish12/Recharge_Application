@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile - Mobi Comm</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Add Font Awesome for the user icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #E5D0AC !important;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            overflow: auto;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .profile-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .profile-icon {
+            font-size: 80px;
+            color: #A31D1D;
+            margin-bottom: 20px;
+        }
+
+        .profile-info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .image-container {
+            max-width: 500px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .row {
+            width: 100%;
+        }
+
+        footer {
+            background-color: #A31D1D !important;
+            color: #FEF9E1 !important;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+            .profile-container, .image-container {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#" style="color: #A31D1D !important;">Profile - Mobi Comm</a>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <div class="content-wrapper">
+        <div class="row d-flex align-items-center">
+            <div class="col-md-6">
+                <div class="profile-container">
+                    <!-- Centered User Icon -->
+                    <div class="profile-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <h2>Admin Profile</h2>
+                    <!-- Profile Information -->
+                    <div class="profile-info">
+                        <p><strong>Name:</strong> <span id="displayName"></span></p>
+                        <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+                        <p><strong>Phone:</strong> <span id="displayPhone"></span></p>
+                    </div>
+                    <!-- Edit Button -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                        Edit Profile
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="image-container">
+                    <img src="assets/image/Profile Interface-bro.png" alt="Profile Interface Illustration">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Mobi Comm. All rights reserved.</p>
+    </footer>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="editName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="editName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail">
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label for="editPhone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="editPhone">
+                        </div> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="saveProfile()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            const loggedInMobile = localStorage.getItem("loggedInMobile");
+    
+            if (!loggedInMobile) {
+                alert("No user logged in. Redirecting to login page.");
+                window.location.href = "login.html";
+                return;
+            }
+    
+            try {
+                // Fetch user data from local JSON file (or API)
+                const response = await fetch("plans.json");
+                const data = await response.json();
+                const user = data.users.find(user => user.mobile === loggedInMobile);
+    
+                if (user) {
+                    // Update profile page with user data
+                    document.getElementById("displayName").textContent = user.name;
+                    document.getElementById("displayEmail").textContent = user.email;
+                    document.getElementById("displayPhone").textContent = user.mobile;
+    
+                    // Store user data in localStorage for persistence
+                    localStorage.setItem("userData", JSON.stringify(user));
+                } else {
+                    alert("User data not found. Redirecting to login.");
+                    window.location.href = "login.html";
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        });
+    
+        // Function to populate modal with existing data
+        document.getElementById('editProfileModal').addEventListener('show.bs.modal', function () {
+            const storedUser = JSON.parse(localStorage.getItem("userData"));
+    
+            if (storedUser) {
+                document.getElementById("editName").value = storedUser.name;
+                document.getElementById("editEmail").value = storedUser.email;
+            }
+        });
+    
+        // Function to save profile changes
+        function saveProfile() {
+            const name = document.getElementById("editName").value;
+            const email = document.getElementById("editEmail").value;
+    
+            document.getElementById("displayName").textContent = name;
+            document.getElementById("displayEmail").textContent = email;
+    
+            // Update localStorage with the new data
+            const updatedUser = {
+                ...JSON.parse(localStorage.getItem("userData")),
+                name,
+                email
+            };
+    
+            localStorage.setItem("userData", JSON.stringify(updatedUser));
+    
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
+            modal.hide();
+    
+            alert("Profile updated successfully!");
+        }
+    </script>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

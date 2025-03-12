@@ -1,0 +1,102 @@
+{
+  "plans": [
+    {
+      "id": "2",
+      "category": "Popular Plans",
+      "price": "₹199",
+      "details": "2GB Data/day, 56 days Validity, Unlimited Calls"
+    },
+    {
+      "id": "3",
+      "category": "Validity Plans",
+      "price": "₹99",
+      "details": "Talktime ₹99, 28 days Validity"
+    },
+    {
+      "id": "4",
+      "category": "Popular Plans",
+      "price": "₹399",
+      "details": "2.5GB Data/day, 84 days Validity, Unlimited Calls"
+    },
+    {
+      "id": "5",
+      "category": "Data Plans",
+      "price": "₹249",
+      "details": "3GB Data/day, 28 days Validity, Unlimited Calls"
+    },
+    {
+      "id": "6",
+      "category": "Data Plans",
+      "price": "₹499",
+      "details": "5GB Data/day, 28 days Validity, Unlimited Calls"
+    },
+    {
+      "id": "7",
+      "category": "Validity Plans",
+      "price": "₹179",
+      "details": "Talktime ₹179, 56 days Validity"
+    },
+    {
+      "id": "8",
+      "category": "Validity Plans",
+      "price": "₹299",
+      "details": "Talktime ₹299, 84 days Validity"
+    },
+    {
+      "id": "9",
+      "category": "Unlimited Plans",
+      "price": "₹349",
+      "details": "Unlimited Data (1.5GB/day at high speed), 28 days Validity, Unlimited Calls"
+    },
+    {
+      "id": "10",
+      "category": "Unlimited Plans",
+      "price": "₹549",
+      "details": "Unlimited Data (2GB/day at high speed), 56 days Validity, Unlimited Calls"
+    },
+    {
+      "id": "11",
+      "category": "International Roaming Plans",
+      "price": "₹649",
+      "details": "1GB International Data, 28 days Validity, 100 mins International Calls"
+    },
+    {
+      "id": "12",
+      "category": "International Roaming Plans",
+      "price": "₹999",
+      "details": "2GB International Data, 56 days Validity, 200 mins International Calls"
+    },
+    {
+      "id": "13",
+      "category": "OTT Plans",
+      "price": "₹399",
+      "details": "1.5GB Data/day, 28 days Validity, Unlimited Calls, Free Subscription to Netflix"
+    },
+    {
+      "id": "14",
+      "category": "OTT Plans",
+      "price": "₹599",
+      "details": "2GB Data/day, 56 days Validity, Unlimited Calls, Free Subscription to Amazon Prime"
+    },
+    {
+      "id": "15",
+      "category": "Family Plans",
+      "price": "₹799",
+      "details": "3GB Data/day, 84 days Validity, Unlimited Calls, Shareable with 2 family members"
+    },
+    {
+      "id": "48fc",
+      "price": "₹99",
+      "details": "9GB/9 days Validity ",
+      "category": "Popular Plans"
+    }
+  ],
+  "users": [
+    {
+      "mobile":"1234567890",
+      "otp":"123456",
+      "name":"karan",
+      "email":"karan@gmail.com"
+    }
+  ]
+}

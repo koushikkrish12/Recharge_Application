@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css"> <!-- Link to the index.css file -->
+    <style>
+        body {
+            background-color: #FEF9E1; /* Background color from index.css */
+        }
+        .login-container {
+            background: url('Assets/Images/Login.jpeg') no-repeat center center;
+            background-size: cover;
+        }
+        .h2, .h3, label {
+            color: #6D2323; /* Text color from index.css */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            background-color: #FEF9E1; /* Card background color from index.css */
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            height: 60% !important;
+        }
+        .otp-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        .otp-box {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #6D2323; /* Button color from index.css */
+            color: #FEF9E1; /* Text color from index.css */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #A31D1D; /* Hover color from index.css */
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        @media (min-width: 768px) {
+            .login-container {
+                background: none;
+            }
+            .h2, .h3, label {
+                color: #6D2323; /* Text color from index.css */
+                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            .card {
+                background-color: #FEF9E1; /* Card background color from index.css */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Mobicomm</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                  
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div class="container-fluid vh-100">
+        <div class="row h-100">
+            <!-- Left Side Image -->
+            <div class="col-md-6 d-none d-md-block p-0">
+                <img src="assets/image/Mobile login-pana.svg" class="img-fluid w-75 h-75 mt-5 ms-5" style="object-fit: cover; border-radius: 15px;" alt="Login Image">
+            </div>
+            
+            <!-- Right Side Login Form -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center login-container">
+                <div class="card w-75 text-center p-5 shadow">
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                        <h2 class="mb-0">MOBICOMM</h2>
+                    </div>
+                    <h3 class="h3 mb-4">Login</h3>
+                    <form id="loginForm">
+                        <div id="mobileInput">
+                            <label for="mobile">Mobile Number</label>
+                            <input type="tel" inputmode="numeric" maxlength="10" id="mobile" placeholder="Enter your mobile number" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                            <div id="mobileError" class="error"></div>
+                        </div>
+                        <div>
+                            <button type="button" onclick="verifyMobile()">Generate OTP</button>
+                        </div>
+                        <div id="otpInput" style="display: none;">
+                            <label for="otp">OTP</label>
+                            <div class="otp-container">
+                                <input type="text" inputmode="numeric" maxlength="1" class="otp-box" oninput="moveToNext(this)">
+                                <input type="text" inputmode="numeric" maxlength="1" class="otp-box" oninput="moveToNext(this)">
+                                <input type="text" inputmode="numeric" maxlength="1" class="otp-box" oninput="moveToNext(this)">
+                                <input type="text" inputmode="numeric" maxlength="1" class="otp-box" oninput="moveToNext(this)">
+                                <input type="text" inputmode="numeric" maxlength="1" class="otp-box" oninput="moveToNext(this)">
+                                <input type="text" inputmode="numeric" maxlength="1" class="otp-box" oninput="moveToNext(this)">
+                            </div>
+                            <div id="otpError" class="error"></div>
+                        </div>
+                        <div>
+                            <button type="submit" id="loginButton" style="display: none;">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to clear error messages after 6 seconds
+        function clearError(errorElement) {
+            setTimeout(() => {
+                errorElement.textContent = ""; // Clear the error message
+            }, 6000); // 6000 milliseconds = 6 seconds
+        }
+    
+        async function verifyMobile() {
+            const mobile = document.getElementById("mobile").value.trim();
+            const mobileError = document.getElementById("mobileError");
+            mobileError.textContent = ""; // Clear previous error message
+    
+            if (mobile === "") {
+                mobileError.textContent = "Please enter your mobile number.";
+                clearError(mobileError); // Clear error after 6 seconds
+                return;
+            }
+    
+            try {
+                // Fetch users from the JSON server
+                const response = await fetch("http://localhost:3000/users");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch users.");
+                }
+                const users = await response.json();
+    
+                // Check if the mobile number exists
+                const user = users.find(user => user.mobile === mobile);
+    
+                if (!user) {
+                    mobileError.textContent = "Mobile number not registered.";
+                    clearError(mobileError); // Clear error after 6 seconds
+                    return;
+                }
+    
+                mobileError.textContent = "OTP sent successfully!";
+                clearError(mobileError); // Clear success message after 6 seconds
+                localStorage.setItem("otp", user.otp); // Store OTP for validation
+    
+                // Hide mobile input and show OTP input
+                document.getElementById("mobileInput").style.display = "none";
+                document.getElementById("otpInput").style.display = "block";
+                document.getElementById("loginButton").style.display = "block";
+            } catch (error) {
+                console.error("Error fetching users:", error);
+                mobileError.textContent = "An error occurred. Please try again later.";
+                clearError(mobileError); // Clear error after 6 seconds
+            }
+        }
+    
+        function moveToNext(input) {
+            if (input.value.length === 1) {
+                const nextInput = input.nextElementSibling;
+                if (nextInput) {
+                    nextInput.focus();
+                }
+            }
+        }
+    
+        function validateOTP(event) {
+            event.preventDefault();
+            const otpBoxes = document.querySelectorAll(".otp-box");
+            let enteredOTP = "";
+            otpBoxes.forEach(box => {
+                enteredOTP += box.value;
+            });
+            const otpError = document.getElementById("otpError");
+            otpError.textContent = ""; // Clear previous error message
+    
+            if (enteredOTP.length !== 6) {
+                otpError.textContent = "Please enter the complete OTP.";
+                clearError(otpError); // Clear error after 6 seconds
+                return;
+            }
+    
+            const storedOTP = localStorage.getItem("otp");
+    
+            if (enteredOTP !== storedOTP) {
+                otpError.textContent = "Invalid OTP. Please try again.";
+                clearError(otpError); // Clear error after 6 seconds
+    
+                // Clear the OTP input boxes
+                otpBoxes.forEach(box => {
+                    box.value = ""; // Set each OTP input box to empty
+                });
+    
+                // Focus on the first OTP input box
+                otpBoxes[0].focus();
+                return;
+            }
+    
+            // Store the logged-in mobile number in localStorage
+            const mobile = document.getElementById("mobile").value.trim();
+            localStorage.setItem("loggedInMobile", mobile);
+    
+            alert("Login Successful");
+            window.location.href = "index.html"; // Redirect to the home page
+        }
+    
+        // Attach the validateOTP function to the form submission
+        document.getElementById("loginForm").addEventListener("submit", validateOTP);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

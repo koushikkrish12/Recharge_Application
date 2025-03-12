@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobi Recharge</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/CSS/home.css">
+    <style>
+        body {
+    background-color: #FEF9E1 !important;
+    color: #6D2323 !important;
+}
+
+.navbar {
+    background-color: #A31D1D !important; /* Updated color */
+}
+
+.navbar-brand, .nav-link {
+    color: #FEF9E1 !important; /* Updated text color for better contrast */
+}
+
+.carousel img {
+    object-fit: cover;
+    height: 400px;
+}
+
+.card {
+    background-color: #a1c4fd; /* Light blue color */
+    color: #6D2323 !important;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    background-color: #A31D1D !important;
+    border-color: #A31D1D !important;
+}
+
+.btn-primary:hover {
+    background-color: #6D2323 !important;
+    border-color: #6D2323 !important;
+}
+
+footer {
+    background-color: #A31D1D !important; /* Updated color */
+    color: #FEF9E1 !important;
+}
+
+.contact {
+    background-color: #E5D0AC;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.contact img {
+    height: 45px;
+    width: 45px;
+    margin-bottom: 10px;
+}
+
+.contact .d-flex {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    margin-top: 15px;
+}
+
+.contact-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    width: 100%;
+}
+
+.contact-card:hover {
+    transform: scale(1.05);
+}
+
+.contact p {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.contact-info {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #555;
+}
+
+.data-usage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff; /* Background for the entire container */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+    margin-bottom: 150px;
+}
+
+/* Style for the current data plan section */
+.current-data-plan {
+    background: #fff; /* Background for the current data plan */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 50%; /* Adjust width as needed */
+}
+
+/* Style for the progress bar */
+.progress {
+    height: 20px; /* Increased height */
+    width: 100%; /* Full width */
+    border-radius: 10px;
+    background: #e9ecef;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: #ff0000; /* Red color for the progress bar */
+}
+
+/* Style for the account details section */
+.account-details {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 45%; /* Adjust width as needed */
+}
+
+.account-details h4 {
+    margin-bottom: 15px;
+}
+/* Responsive layout */
+@media (max-width: 767px) {
+    .contact .row {
+        display: block;
+    }
+
+    .contact-card {
+        width: 100%;
+    }
+}
+        .account-details {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 45%; /* Adjust width as needed */
+        }
+        .account-details h4 {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+     <!-- Modal -->
+     <div class="modal fade" id="phoneModal" tabindex="-1" aria-labelledby="phoneModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="phoneModalLabel">Enter Your Phone Number</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="mobileNumberInput" placeholder="Enter your 10-digit mobile number" maxlength="10">
+                <label>Enter Your OTP</label>
+                <input type="text" class="form-control" id="otpInput" placeholder="Enter your OTP" maxlength="6">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="explorePlansButton">Explore Plans</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Mobi-Comm</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Prepaid_plans.html">Prepaid Plans</a></li>
+                    <li class="nav-item"><a class="nav-link" href="History.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Profile.html">Profile</a></li>
+                </ul>
+                
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carousel -->
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="assets/image/premium_photo-1661580608404-c6e7b4481c31.jpg" class="d-block w-100" alt="Best Plans">
+            </div>
+            <div class="carousel-item">
+                <img src="assets/image/image (2).jpg" class="d-block w-100" alt="Best Plans">
+            </div>
+            <!-- <div class="carousel-item">
+                <img src="assets/image/image (1).jpg" class="d-block w-100" alt="Recharge Offers">
+            </div> -->
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <!-- Current Data Plan and Usage -->
+<div class="container my-5">
+    <div class="data-usage">
+        <!-- Current Data Plan -->
+        <div class="current-data-plan">
+            <h4>Current Data Plan</h4>
+            <p>2GB Data/day, 56 days Validity</p>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65% Used</div>
+            </div>
+            <p class="mt-2">Remaining Data: 700MB</p>
+        </div>
+
+        <!-- Account Details -->
+        <div class="account-details">
+            <h4>Account Details</h4>
+            <p>Name: Karan</p>
+            <p>Phone: 9876543210</p>
+            <p>Email: karan@gmail.com</p>
+        </div>
+    </div>
+</div>
+<!-- Why Choose MobiComm Section -->
+<div class="container my-5 " style="margin-top: 400px;">
+    <h2 class="text-center mb-4" style="color: #6D2323;">Why You Need to Choose MobiComm</h2>
+    <div class="row g-4">
+        <!-- Affordable & Transparent Pricing Card -->
+        <div class="col-md-4">
+            <div class="card p-3" style="background-color: #E5D0AC; color: #6D2323;">
+                <h5 class="card-title">Affordable & Transparent Pricing</h5>
+                <p class="card-text">MobiComm offers competitive pricing with no hidden charges. Enjoy budget-friendly plans, flexible prepaid/postpaid options, and exclusive discounts tailored to your usage.</p>
+            </div>
+        </div>
+        <!-- AI-Powered Smart Services Card -->
+        <div class="col-md-4">
+            <div class="card p-3" style="background-color: #E5D0AC; color: #6D2323;">
+                <h5 class="card-title">AI-Powered Smart Services</h5>
+                <p class="card-text">Experience next-gen telecom with AI-driven personalized offers, intelligent recharge reminders, and a smart chatbot assistant for seamless customer support.</p>
+            </div>
+        </div>
+        <!-- Superior Network & Seamless Connectivity Card -->
+        <div class="col-md-4">
+            <div class="card p-3" style="background-color: #E5D0AC; color: #6D2323;">
+                <h5 class="card-title">Superior Network & Connectivity</h5>
+                <p class="card-text">MobiComm ensures strong network coverage with high-speed internet and uninterrupted calling, even in remote areas, so you stay connected anytime, anywhere.</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Highlighted Plans (Recommended Plans without title) -->
+    <div class="container my-5 highlighted-plans">
+        <h2 class="text-center mb-4">Popular Recharge Plans</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5 class="card-title">₹199 Plan</h5>
+                    <p>1.5GB Data/day, 28 days Validity</p>
+                    <a href="Prepaid_plans.html#plan-199" class="btn btn-danger">Recharge Now</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5 class="card-title">₹299 Plan</h5>
+                    <p>2GB Data/day, 56 days Validity</p>
+                    <a href="Prepaid_plans.html#plan-299" class="btn btn-danger">Recharge Now</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5 class="card-title">₹499 Plan</h5>
+                    <p>3GB Data/day, 84 days Validity</p>
+                    <a href="Prepaid_plans.html#plan-499" class="btn btn-danger">Recharge Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popular Plans -->
+    <div class="container my-5 popular-plans" id="plans">
+       
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5 class="card-title">₹599 Plan</h5>
+                    <p>2.5GB Data/day, 84 days Validity</p>
+                    <a href="Prepaid_plans.html#plan-599" class="btn btn-danger">Recharge Now</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5 class="card-title">₹799 Plan</h5>
+                    <p>3GB Data/day, 90 days Validity</p>
+                    <a href="Prepaid_plans.html#plan-799" class="btn btn-danger">Recharge Now</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5 class="card-title">₹999 Plan</h5>
+                    <p>Unlimited Data, 30 days Validity</p>
+                    <a href="Prepaid_plans.html#plan-999" class="btn btn-danger">Recharge Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="contact container-fluid d-flex flex-column justify-content-center align-items-center py-5">
+        <h3>Contact Us</h3>
+        <div class="row justify-content-center w-75">
+            <div class="col-12 col-sm-6 col-md-3 mb-4">
+                <a href="" class="contact-card">
+                    <img src="assets/image/phone-call.png" alt="">
+                    <p>Call Us</p>
+                    <span class="contact-info">Available 24/7</span>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 mb-4">
+                <a href="" class="contact-card">
+                    <img src="assets/image/whatsapp (1).png" alt="">
+                    <p>Whatsapp</p>
+                    <span class="contact-info">Quick response</span>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 mb-4">
+                <a href="" class="contact-card">
+                    <img src="assets/image/email.png" alt="">
+                    <p>Email</p>
+                    <span class="contact-info">support@mobi.com</span>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 mb-4">
+                <a href="" class="contact-card">
+                    <img src="assets/image/facebook (1).png" alt="">
+                    <p>Facebook</p>
+                    <span class="contact-info">Facebook page</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center py-3">
+    <p>&copy; 2025 Mobi Recharge. All rights reserved.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

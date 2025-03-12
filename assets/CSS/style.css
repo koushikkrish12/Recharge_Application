@@ -1,0 +1,290 @@
+/*home*/
+body {
+    background-color: #FEF9E1 !important;
+    color: #6D2323 !important;
+}
+
+.navbar {
+    background-color: #A31D1D !important; /* Updated color */
+}
+
+.navbar-brand, .nav-link {
+    color: #FEF9E1 !important; /* Updated text color for better contrast */
+}
+
+.carousel img {
+    object-fit: cover;
+    height: 400px;
+}
+
+.card {
+    background-color: #a1c4fd; /* Light blue color */
+    color: #6D2323 !important;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    background-color: #A31D1D !important;
+    border-color: #A31D1D !important;
+}
+
+.btn-primary:hover {
+    background-color: #6D2323 !important;
+    border-color: #6D2323 !important;
+}
+
+footer {
+    background-color: #A31D1D !important; /* Updated color */
+    color: #FEF9E1 !important;
+}
+
+.contact {
+    background-color: #E5D0AC;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.contact img {
+    height: 45px;
+    width: 45px;
+    margin-bottom: 10px;
+}
+
+.contact .d-flex {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+    margin-top: 15px;
+}
+
+.contact-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    width: 100%;
+}
+
+.contact-card:hover {
+    transform: scale(1.05);
+}
+
+.contact p {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.contact-info {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #555;
+}
+
+/* Progress bar styles */
+.progress {
+    height: 20px; /* Increased height */
+    width: 50%; /* Adjust width as needed */
+    border-radius: 10px;
+    background: #e9ecef;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+}
+/* Remove forced hiding of modal */
+/* Remove forced hiding of modal */
+
+
+
+/* Responsive layout */
+@media (max-width: 767px) {
+    .contact .row {
+        display: block;
+    }
+
+    .contact-card {
+        width: 100%;
+    }
+}
+/*prepaid plans*/
+body {
+    background-color: #FEF9E1;
+    color: #6D2323;
+}
+.navbar {
+    background-color: #E5D0AC !important;
+}
+.navbar-brand, .nav-link {
+    color: #A31D1D !important;
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 300px;
+    background-color: #A31D1D;
+    color: #FEF9E1;
+    padding: 20px;
+}
+.content {
+    margin-left: 320px;
+    padding: 20px;
+}
+.card {
+    background-color: #E5D0AC;
+    color: #6D2323;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease-in-out;
+    height: 100%; /* Ensure all cards have the same height */
+}
+.card:hover {
+    transform: scale(1.05);
+}
+.btn-primary {
+    background-color: #A31D1D;
+    border-color: #A31D1D;
+}
+.btn-primary:hover {
+    background-color: #6D2323;
+    border-color: #6D2323;
+}
+.card-footer {
+    text-align: center; /* Center the button */
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Adds space between rows */
+}
+.col-md-4 {
+    margin-bottom: 20px; /* Adds space between cards */
+}
+
+
+.plan-categories {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.plan-categories button {
+    background-color: #A31D1D;
+    color: #FEF9E1;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.plan-categories button:hover {
+    background-color: #6D2323;
+}
+@media (max-width: 992px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        text-align: center;
+    }
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+    .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/*history*/
+
+body {
+    background-color: #FEF9E1;
+    color: #6D2323;
+}
+.sidebar {
+    background-color: #A31D1D;
+    color: #FEF9E1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.sidebar h2 {
+    margin-bottom: 20px;
+}
+.sidebar .btn {
+    width: 100%;
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #FEF9E1;
+    color: #A31D1D;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+}
+.sidebar .btn:hover {
+    background-color: #E5D0AC;
+    color: #6D2323;
+}
+.content {
+    padding: 20px;
+}
+.card {
+    background-color: #E5D0AC;
+    color: #6D2323;
+    margin-bottom: 10px;
+    padding: 10px; /* Reduce padding to decrease height */
+    height: auto; /* Ensure card adjusts to content */
+    min-height: 120px; /* Set a reasonable minimum height */
+}
+
+@media (min-width: 768px) {
+    .main-container {
+        display: flex;
+    }
+    .sidebar {
+        width: 300px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        justify-content: center;
+    }
+    .content {
+        margin-left: 320px;
+        width: calc(100% - 320px);
+    }
+}
+/* Add this to your existing CSS file (assets/CSS/style.css) */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    color: #E5D0AC; /* Arrow color */
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.back-button:hover {
+    opacity: 0.8; /* Slightly fade on hover */
+}
