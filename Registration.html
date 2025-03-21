@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New SIM Card Request</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="Assets/CSS/style.css">
+  <!-- Custom CSS -->
+  <style>
+
+    body {
+      background-color: #f8f9fa;
+    }
+    .form-container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-top: 50px;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    /* Navbar text color */
+    .navbar-dark .navbar-brand,
+    .navbar-dark .navbar-nav .nav-link {
+      color: #fff !important; /* White text for navbar brand and links */
+    }
+
+    .btn-ripple {
+    background-color: #6D2323; /* Set the button color to #6D2323 */
+    color: #fff; /* White text for better contrast */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Add padding for better button size */
+    font-size: 1rem; /* Set font size */
+    border-radius: 5px; /* Add rounded corners */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+  }
+
+  .btn-ripple:hover {
+    background-color: #fff9f9; 
+    color: #6D2323;
+    border-color: #6D2323;/* Change color on hover */
+  }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #6D2323, #A31D1D); padding: 4px;">
+    <div class="container">
+      <a class="navbar-brand" href="#">MobiComm</a> <!-- Updated text to MobiComm -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#request">Request SIM</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Request SIM Card Section -->
+  <section id="request" class="container">
+    <div class="row align-items-center">
+      <!-- Left Side: SVG Image -->
+      <div class="col-lg-6 order-lg-1 order-1 text-center">
+        <img src="assets/image/Sign up-rafiki.svg" alt="SIM Card Illustration" class="img-fluid w-100">
+      </div>
+
+      <!-- Right Side: Form Section -->
+      <div class="col-lg-6 order-lg-2 order-2">
+        <div class="form-container">
+          <h2 class="text-center mb-4">Request a New SIM Card</h2>
+          <form id="registerForm">
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" maxlength="10" id="phone" placeholder="Enter your phone number" required>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Delivery Address</label>
+              <textarea class="form-control" id="address" rows="3" placeholder="Enter your delivery address" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="simType" class="form-label">SIM Type</label>
+              <select class="form-select" id="simType" required>
+                <option value="" disabled selected>Select SIM Type</option>
+                <option value="nano">Nano SIM</option>
+                <option value="micro">Micro SIM</option>
+                <option value="standard">Standard SIM</option>
+              </select>
+            </div>
+            <div class="text-center">
+                <button type="submit" id="registerButton" class="btn btn-ripple">Submit Request</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="bg-dark text-white py-4 mt-5">
+    <div class="container mt-5">
+      <div class="row text-center text-md-start">
+        <!-- Quick Links -->
+        <div class="col-md-3 mb-3">
+          <h5> <strong>Quick Links</strong></h5>
+          <ul class="list-unstyled ">
+            <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+            <li><a href="plan_page.html" class="text-white text-decoration-none">View Plans</a></li>
+            <li><a href="#FAQS" class="text-white text-decoration-none">FAQS</a></li>
+            <li><a href="History.html" class="text-white text-decoration-none">History</a></li>
+            <li><a href="AboutUs.html" class="text-white text-decoration-none">About-us</a></li>
+          </ul>
+        </div>
+        
+        <!-- Contact Us -->
+        <div class="col-md-3 mb-3">
+          <h5> <strong>Contact Us</strong> </h5>
+          <p>Email: support@mobicomm.com</p>
+          <p>Phone: +123 456 7890</p>
+          <a href="orderSim.html" class="text-decoration-none" style="color: #dee2e6;">New SIM</a>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+          <h5> <strong>Policy</strong> </h5>
+          <p>Privacy Policy</p>
+          <p>Terms & Conditions</p>
+          <p>Refunds Policy</p>
+        </div>
+
+        <!-- Follow Us -->
+        <div class="col-md-3 mb-3">
+          <h5> <strong>Follow Us</strong> </h5>
+          <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-white me-3"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      
+      <!-- Copyright Row -->
+      <div class="row mt-3">
+        <div class="col text-center">
+          <p class="mb-0">&copy; 2025 MobiComm Industry Limited. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById("fullName").value;
+      const phoneNumber = document.getElementById("phone").value;
+      const email = document.getElementById("email").value;
+      const address = document.getElementById("address").value;
+
+      const registerButton = document.getElementById("registerButton");
+      registerButton.disabled = true;
+
+      try {
+        const response = await fetch("http://localhost:8089/api/users/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, phoneNumber, address })
+        });
+        const message = await response.text();
+        
+        if (response.ok) {
+          alert("Register successfully");
+          window.location.href = "index.html";
+        } else {
+          alert(message);
+        }
+      } catch (error) {
+        alert("An error occurred. Please try again");
+      } finally {
+        registerButton.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

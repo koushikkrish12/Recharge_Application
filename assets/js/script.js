@@ -109,28 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-let selectedAmount = '';
-let selectedData = '';
-let selectedValidity = '';
 
-function showMobileNumberModal(amount, data, validity) {
-    selectedAmount = amount;
-    selectedData = data;
-    selectedValidity = validity;
-
-    // Check if mobile number is already passed from the home page
-    const params = new URLSearchParams(window.location.search);
-    const mobileNumber = params.get('mobile');
-
-    if (mobileNumber) {
-        // If mobile number is already available, proceed directly to payment
-        window.location.href = `Payment.html?amount=${selectedAmount}&data=${selectedData}&validity=${selectedValidity}&mobile=${mobileNumber}`;
-    } else {
-        // If mobile number is not available, show the mobile number modal
-        const mobileNumberModal = new bootstrap.Modal(document.getElementById('mobileNumberModal'));
-        mobileNumberModal.show();
-    }
-}
 
 // Handle "Proceed to Payment" button click in the mobile number modal
 document.getElementById('proceedToPayment').addEventListener('click', function () {
@@ -144,8 +123,9 @@ document.getElementById('proceedToPayment').addEventListener('click', function (
 
 function getQueryParams() {
     const params = new URLSearchParams(window.location.search);
-    document.getElementById("planAmount").textContent = `${params.get("amount")}`;
-    document.getElementById("planDetails").textContent = `${params.get("data")}, ${params.get("validity")}`;
+    document.getElementById("planPrice").textContent = params.get("amount");
+    document.getElementById("planData").textContent = params.get("details");
+    document.getElementById('validDays').textContent = params.get("validity");
     document.getElementById("mobileNumber").textContent = params.get("mobile");
 }
 

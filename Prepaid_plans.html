@@ -64,10 +64,9 @@
         <!-- Plan Categories -->
         <div class="plan-categories">
             <button onclick="filterPlans('all')">All</button>
-            <button onclick="filterPlans('popular')">Popular</button>
-            <button onclick="filterPlans('unlimited')">Unlimited</button>
-            <button onclick="filterPlans('data')">Data</button>
-            <button onclick="filterPlans('calls')">Calls</button>
+            <button onclick="filterPlans('DATA')">Data</button>
+            <button onclick="filterPlans('UNLIMITED')">Unlimited</button>
+            <button onclick="filterPlans('PREMIUM')">Premium</button>
         </div>
 
         <div class="row" id="plans-row">
@@ -90,7 +89,9 @@
                     </div>
                     <div class="mb-3">
                         <p>Price: <span id="modal-plan-price"></span></p>
+                        <p>Validity: <span id="modal-plan-validity"></span> days</p>
                         <p>Details: <span id="modal-plan-details"></span></p>
+                        <p>Plan Id: <span id="modal-plan-id"></span></p>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -102,61 +103,170 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            let mobileNumber = urlParams.get("mobile");
+        let allPlans = []; // Store all plans fetched from the database
 
-            // If mobile number is not in URL, try getting it from localStorage
-            if (!mobileNumber) {
-                mobileNumber = localStorage.getItem("rechargeNumber");
+        // Fetch all plans from the database
+        async function fetchPlans() {
+            try {
+                const response = await fetch("http://localhost:8089/api/plans/all");
+                if (!response.ok) throw new Error("Failed to fetch plans");
+                allPlans = await response.json();
+                displayPlans(allPlans); // Display all plans by default
+            } catch (error) {
+                console.error("Error fetching plans:", error);
+                alert("Failed to load plans.");
             }
+        }
 
-            // Store the mobile number for later use
-            if (mobileNumber) {
-                localStorage.setItem("rechargeNumber", mobileNumber);
-            }
+        // Display plans in the UI
+        function displayPlans(plans) {
+            const plansRow = document.getElementById('plans-row');
+            plansRow.innerHTML = ''; // Clear existing plans
 
-            // Fetch and display plans
-            fetch('http://localhost:3000/plans')
-                .then((response) => response.json())
-                .then((data) => {
-                    const plansRow = document.getElementById('plans-row');
-                    plansRow.innerHTML = '';
-
-                    data.forEach(plan => {
-                        const planCard = `
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <h5>₹${plan.price}</h5>
-                                    <p>${plan.details}</p>
-                                    <div class="card-footer">
-                                        <a class="btn btn-primary" onclick="handleGetPlan('${plan.price}', '${plan.details}')">Get Plan</a>
-                                    </div>
-                                </div>
+            plans.forEach(plan => {
+                const planCard = `
+                    <div class="col-md-4">
+                        <div class="card">
+                            <h5>${plan.name}</h5>
+                            <p><strong>Price:</strong> ₹${plan.price}</p>
+                            <p><strong>Data:</strong> ${plan.data}</p>
+                            <p><strong>Calls:</strong> ${plan.calls}</p>
+                            <p><strong>SMS:</strong> ${plan.sms}</p>
+                            <p><strong>Validity:</strong> ${plan.validityDays} days</p>
+                            <p><strong>Details:</strong> ${plan.details}</p>
+                            <div class="card-footer">
+                                <a class="btn btn-primary" onclick="showMobileNumberModal('${plan.price}', '${plan.validityDays}', '${plan.details}', '${plan.planId}')">Get Plan</a>
                             </div>
-                        `;
-                        plansRow.innerHTML += planCard;
-                    });
-                })
-                .catch(error => console.error("Error fetching plans:", error));
+                        </div>
+                    </div>
+                `;
+                plansRow.innerHTML += planCard;
+            });
+        }
+
+        // Filter plans by category
+        function filterPlans(category) {
+            if (category === 'all') {
+                displayPlans(allPlans); // Show all plans
+            } else {
+                const filteredPlans = allPlans.filter(plan => plan.category === category);
+                displayPlans(filteredPlans); // Show filtered plans
+            }
+        }
+
+        // Show mobile number modal
+        function showMobileNumberModal(price, validityDays, details, planId) {
+            const params = new URLSearchParams(window.location.search);
+            const mobileNumber = params.get('mobile');
+
+            if (mobileNumber) {
+                initiateRazorpayPayment(price, validityDays, details, mobileNumber, planId);
+            } else {
+                const mobileNumberModal = new bootstrap.Modal(document.getElementById('mobileNumberModal'));
+                document.getElementById("modal-plan-price").textContent = `₹${price}`;
+                document.getElementById("modal-plan-validity").textContent = `${validityDays}`;
+                document.getElementById("modal-plan-details").textContent = `${details}`;
+                document.getElementById("modal-plan-id").textContent = `${planId}`;
+                // Store the plan details in data attributes
+                document.getElementById('proceedToPayment').setAttribute('data-price', price);
+                document.getElementById('proceedToPayment').setAttribute('data-validity', validityDays);
+                document.getElementById('proceedToPayment').setAttribute('data-details', details);
+                document.getElementById('proceedToPayment').setAttribute('data-plan-id', planId);
+                
+                mobileNumberModal.show();
+            }
+        }
+
+        // Handle "Proceed to Payment" button click
+        document.getElementById('proceedToPayment').addEventListener('click', function () {
+            const mobileNumber = document.getElementById('mobileNumber').value;
+            if (mobileNumber.length === 10 && !isNaN(mobileNumber)) {
+                const price = this.getAttribute('data-price');
+                const validityDays = this.getAttribute('data-validity');
+                const details = this.getAttribute('data-details');
+                const planId = this.getAttribute('data-plan-id');
+                
+                initiateRazorpayPayment(price, validityDays, details, mobileNumber, planId);
+            } else {
+                alert('Please enter a valid 10-digit mobile number.');
+            }
         });
 
-        function handleGetPlan(price, details) {
-            const mobileNumber = localStorage.getItem("rechargeNumber");
+        // Function to initiate Razorpay payment
+        function initiateRazorpayPayment(price, validityDays, details, mobileNumber, planId) {
+            const options = {
+                key: "rzp_test_h6RBljdF0XW8S4", // Replace with your Razorpay key
+                amount: price * 100, // Amount in paise (e.g., ₹100 = 10000 paise)
+                currency: "INR",
+                name: "Prepaid Recharge",
+                description: `Recharge for ${mobileNumber} | ${details}`,
+                image: "https://your-logo-url.com/logo.png", // Replace with your logo URL
+                handler: function (response) {
+                    alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+                    savePaymentHistory(response.razorpay_payment_id, mobileNumber, price, validityDays, details, planId);
+                },
+                prefill: {
+                    name: "Customer Name", // Replace with customer name if available
+                    email: "customer@example.com", // Replace with customer email if available
+                    contact: mobileNumber,
+                },
+                theme: {
+                    color: "#A31D1D", // Customize the theme color
+                },
+            };
 
-            if (mobileNumber) {
-                window.location.href = `Payment.html?amount=${price}&data=${details}&mobile=${mobileNumber}`;
-            } else {
-                alert("Mobile number not found. Please try again.");
+            const rzp = new Razorpay(options);
+            rzp.open();
+        }
+
+        // Function to save payment history
+        async function savePaymentHistory(paymentId, mobileNumber, price, validityDays, details, planId) {
+            const userId = localStorage.getItem("userID");
+            console.log(userId);
+            if (!userId) {
+                alert("User not logged in. Please log in to save payment history.");
+                return;
+            }
+
+            const requestBody = {
+                userId: userId,
+                rechargePhNo: mobileNumber,
+                payMethod: "Razorpay",
+                amount: parseFloat(price),
+                planId: planId,
+                dateTime: new Date().toISOString(),
+            };
+            if (!requestBody.userId || !requestBody.planId || isNaN(requestBody.amount)) {
+    alert("Invalid request data. Please try again.");
+    return;
+}
+
+
+
+            try {
+                const response = await fetch("http://localhost:8089/api/payment-history", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(requestBody),
+                });
+
+                if (response.ok) {
+                    alert("Payment history saved successfully!");
+                    window.location.href = "History.html"; // Redirect to history page
+                } else {
+                    alert("Failed to save payment history.");
+                }
+            } catch (error) {
+                console.error("Error saving payment history:", error);
             }
         }
 
-        function filterPlans(category) {
-            // Implement filtering logic based on the category
-            console.log(`Filtering by ${category}`);
-            // You can fetch plans again and filter them based on the category
-        }
+        // Fetch plans when the page loads
+        window.onload = fetchPlans;
     </script>
 </body>
 </html>

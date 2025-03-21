@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Profile - Mobi Comm</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <!-- Add Font Awesome for the user icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
@@ -122,12 +121,12 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 Mobi Comm. All rights reserved.</p>
     </footer>
-
+    
     <!-- Edit Profile Modal -->
     <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -146,10 +145,6 @@
                             <label for="editEmail" class="form-label">Email</label>
                             <input type="email" class="form-control" id="editEmail">
                         </div>
-                        <!-- <div class="mb-3">
-                            <label for="editPhone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="editPhone">
-                        </div> -->
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -159,76 +154,112 @@
             </div>
         </div>
     </div>
-
+    
     <script>
         document.addEventListener("DOMContentLoaded", async function () {
-            const loggedInMobile = localStorage.getItem("loggedInMobile");
-    
-            if (!loggedInMobile) {
+            const phoneNumber = localStorage.getItem("loggedInMobile");
+
+            if (!phoneNumber) {
                 alert("No user logged in. Redirecting to login page.");
                 window.location.href = "login.html";
                 return;
             }
-    
+
             try {
-                // Fetch user data from local JSON file (or API)
-                const response = await fetch("plans.json");
-                const data = await response.json();
-                const user = data.users.find(user => user.mobile === loggedInMobile);
-    
-                if (user) {
-                    // Update profile page with user data
-                    document.getElementById("displayName").textContent = user.name;
-                    document.getElementById("displayEmail").textContent = user.email;
-                    document.getElementById("displayPhone").textContent = user.mobile;
-    
-                    // Store user data in localStorage for persistence
-                    localStorage.setItem("userData", JSON.stringify(user));
-                } else {
-                    alert("User data not found. Redirecting to login.");
-                    window.location.href = "login.html";
+                // Fetch user details from the backend
+                const response = await fetch(`http://localhost:8089/api/users/profile?phoneNumber=${phoneNumber}`);
+
+                if (!response.ok) {
+                    throw new Error("User not found");
                 }
+
+                const user = await response.json();
+
+                // Log user data for debugging
+                console.log("Fetched User Data:", user);
+
+                // Update profile page with user data
+                document.getElementById("displayName").textContent = user.name || "N/A";
+                document.getElementById("displayEmail").textContent = user.email || "N/A";
+                document.getElementById("displayPhone").textContent = user.phoneNumber || "N/A";
+
+                // Store user data in localStorage
+                if (user.userId) {
+                    localStorage.setItem("userID", user.userId);
+                    console.log("Stored userID:", user.userId);
+                } else {
+                    console.error("User ID is missing in the response.");
+                }
+
+                // Store the entire user object for later use
+                localStorage.setItem("userData", JSON.stringify(user));
             } catch (error) {
-                console.error("Error fetching user data:", error);
+                alert("Error fetching user details. Please try again.");
+                console.error("Fetch error:", error);
+                window.location.href = "login.html";
             }
         });
-    
+
         // Function to populate modal with existing data
         document.getElementById('editProfileModal').addEventListener('show.bs.modal', function () {
             const storedUser = JSON.parse(localStorage.getItem("userData"));
-    
+
             if (storedUser) {
-                document.getElementById("editName").value = storedUser.name;
-                document.getElementById("editEmail").value = storedUser.email;
+                document.getElementById("editName").value = storedUser.name || "";
+                document.getElementById("editEmail").value = storedUser.email || "";
             }
         });
-    
+
         // Function to save profile changes
-        function saveProfile() {
+        async function saveProfile() {
             const name = document.getElementById("editName").value;
             const email = document.getElementById("editEmail").value;
-    
-            document.getElementById("displayName").textContent = name;
-            document.getElementById("displayEmail").textContent = email;
-    
-            // Update localStorage with the new data
-            const updatedUser = {
-                ...JSON.parse(localStorage.getItem("userData")),
-                name,
-                email
+            const storedUser = JSON.parse(localStorage.getItem("userData"));
+
+            if (!storedUser || !storedUser.userId) {
+                alert("User information is missing. Please log in again.");
+                return;
+            }
+
+            const updatedData = {
+                name: name,
+                email: email,
             };
-    
-            localStorage.setItem("userData", JSON.stringify(updatedUser));
-    
-            // Close modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
-            modal.hide();
-    
-            alert("Profile updated successfully!");
+
+            try {
+                const response = await fetch(`http://localhost:8089/api/users/update/${storedUser.phoneNumber}?userId=${storedUser.userId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(updatedData)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to update profile");
+                }
+
+                // Update UI
+                document.getElementById("displayName").textContent = name;
+                document.getElementById("displayEmail").textContent = email;
+
+                // Update localStorage
+                storedUser.name = name;
+                storedUser.email = email;
+                localStorage.setItem("userData", JSON.stringify(storedUser));
+
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('editProfileModal'));
+                modal.hide();
+
+                alert("Profile updated successfully!");
+            } catch (error) {
+                alert("Error updating profile. Please try again.");
+                console.error("Update error:", error);
+            }
         }
     </script>
     
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

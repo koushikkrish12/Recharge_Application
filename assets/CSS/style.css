@@ -211,6 +211,7 @@ body {
 
 /*history*/
 
+
 body {
     background-color: #FEF9E1;
     color: #6D2323;
@@ -273,18 +274,24 @@ body {
     }
 }
 /* Add this to your existing CSS file (assets/CSS/style.css) */
-.back-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: none;
-    border: none;
-    color: #E5D0AC; /* Arrow color */
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 1000; /* Ensure it's above other elements */
-}
+    .back-button {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000; /* Ensure it stays on top of other elements */
+        background-color: #A31D1D;
+        color: #FEF9E1;
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
 
 .back-button:hover {
-    opacity: 0.8; /* Slightly fade on hover */
+    opacity: 0.8;
+    background-color: #E5D0AC;
+    color: #A31D1D;
+    width: 40px;
+    height: 40px;
+    /* Slightly fade on hover */
 }

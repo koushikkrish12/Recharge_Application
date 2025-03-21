@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="assets/CSS/style2.css">
 </head>
 <body>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-3 sidebar">
@@ -18,11 +17,9 @@
                 <div class="card mb-3">
                     <h3>Selected Plan</h3>
                     <p><strong>Mobile Number:</strong> <span id="mobileNumber"></span></p>
-
-
-                    <p><strong>Recharge Amount:</strong> <span id="planAmount"></span></p>
-                    <p><strong>Plan Details:</strong> <span id="planDetails"></span></p>
-
+                    <p><strong>Plan Price:</strong> <span id="planPrice"></span></p>
+                    <p><strong>Plan Data:</strong> <span id="planData"></span></p>
+                    <p><strong>Validity:</strong> <span id="validDays"></span></p>
                 </div>
                 <div class="card">
                     <h3>Choose Payment Method</h3>
@@ -42,8 +39,8 @@
             </div>
         </div>
     </div>
-    
-    <!-- Card -->
+
+    <!-- Card Payment Modal -->
     <div class="modal fade" id="cardPaymentModal" tabindex="-1" aria-labelledby="cardPaymentModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -72,7 +69,7 @@
         </div>
     </div>
 
-    <!-- UPI -->
+    <!-- UPI Payment Modal -->
     <div class="modal fade" id="upiPaymentModal" tabindex="-1" aria-labelledby="upiPaymentModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -86,13 +83,58 @@
                             <label class="form-label">UPI ID</label>
                             <input type="text" class="form-control" placeholder="example@upi">
                         </div>
-                        <a type="button" class="btn btn-danger w-100" href="Payment_Success.html">Confirm Payment</a>
+                        <a type="button" class="btn btn-danger w-100" onclick="submitPay()">Confirm Payment</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById("planPrice").textContent = `₹${params.get("amount")}`;
+            document.getElementById("planData").textContent = params.get("details");
+            document.getElementById("validDays").textContent = `${params.get("validity")} days`;
+            document.getElementById("mobileNumber").textContent = params.get("mobile");
+        }
+        window.onload = getQueryParams;
+
+function submitPay{       
+        fetch('http://localhost:8089/api/payment-history', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(paymentData)
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to create payment history");
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Success:', data);
+      alert('Payment History created successfully!');
+
+      // Clear the display card
+      clearDisplayCard();
+
+      // Clear all localStorage items except loggedInMobile
+      const loggedInMobile = localStorage.getItem("loggedInMobile"); // Save loggedInMobile
+      localStorage.removeItem("guestId"); 
+      localStorage.removeItem("guestMobile");
+      localStorage.removeItem("plan");
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert('Failed to create Payment History.');
+    });
+}
+    </script>
+
+
     <script src="assets/js/script.js">
     </script>
 
